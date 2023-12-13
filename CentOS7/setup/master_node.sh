@@ -19,7 +19,7 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 
 # config for kubernetes's network 
 kubectl apply -f \
-https://raw.githubusercontent.com/yoongunwo/kubernetes/Calico/setup/tigera-operator.yaml
+https://raw.githubusercontent.com/yoongunwo/kubernetes/main/Calico/setup/tigera-operator.yaml
 
 kubectl apply -f \
-https://raw.githubusercontent.com/yoongunwo/kubernetes/Calico/setup/tigera-operator.yaml
+https://raw.githubusercontent.com/yoongunwo/kubernetes/main/Calico/setup/tigera-operator.yaml
