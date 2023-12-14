@@ -19,18 +19,17 @@ yum install docker -y && systemctl enable --now docker
 OS=CentOS_7
 VERSION=1.28
 curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/${OS}/devel:kubic:libcontainers:stable.repo
-sudo curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:${VERSION}.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:${VERSION}/CentOS_7/devel:kubic:libcontainers:stable:cri-o:${VERSION}.repo
+curl -L -o /etc/yum.repos.d/devel:kubic:libcontainers:stable:cri-o:${VERSION}.repo https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:${VERSION}/CentOS_7/devel:kubic:libcontainers:stable:cri-o:${VERSION}.repo
 
 yum install -y cri-o cri-tools
-sudo systemctl enable --now crio
+systemctl enable --now crio
 
 # install kubernetes cluster 
 yum install -y kubelet-$1 kubeadm-$1 --disableexcludes=kubernetes
-systemctl enable --now kubelet
-
-##
 curl -LO https://dl.k8s.io/release/v1.28.4/bin/linux/amd64/kubectl
 sudo install -o root -g root -m 0755 kubectl /usr/bin/kubectl
+
+systemctl enable --now kubelet
 ##
 
 # git clone _Book_k8sInfra.git 

@@ -10,6 +10,7 @@ source ~/.bash_profile
 
 # init kubernetes 
 kubeadm init --apiserver-advertise-address=192.168.1.10 \
+--token 123456.1234567890123456 --token-ttl 0 \
 --pod-network-cidr=172.16.0.0/16 --cri-socket=/var/run/crio/crio.sock
 
 # config for master node only  
@@ -18,8 +19,8 @@ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 chown $(id -u):$(id -g) $HOME/.kube/config
 
 # config for kubernetes's network 
-kubectl apply -f \
+kubectl create -f \
 https://raw.githubusercontent.com/yoongunwo/kubernetes/main/Calico/setup/tigera-operator.yaml
 
-kubectl apply -f \
-https://raw.githubusercontent.com/yoongunwo/kubernetes/main/Calico/setup/tigera-operator.yaml
+kubectl create -f \
+https://raw.githubusercontent.com/yoongunwo/kubernetes/main/Calico/setup/custom-resources.yaml
