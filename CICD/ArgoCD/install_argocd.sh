@@ -1,5 +1,8 @@
 # Create argocd Namespace
-kubectl apply -f ./argocd.yaml
+kubectl create -f argocd.yaml
 
 # install argocd - stable version
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl create -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+# expose argocd service using LoadBalancer
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
