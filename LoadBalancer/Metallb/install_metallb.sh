@@ -7,3 +7,5 @@ kubectl apply -f - -n kube-system
 
 # install metallb
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.12/config/manifests/metallb-native.yaml
+
+kubectl create -f metallb-l2config.yaml

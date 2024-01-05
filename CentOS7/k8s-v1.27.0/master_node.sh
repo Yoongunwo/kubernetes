@@ -9,9 +9,9 @@ echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bash_profile
 source ~/.bash_profile
 
 # init kubernetes 
-kubeadm init --apiserver-advertise-address=192.168.1.10 \
+kubeadm init --apiserver-advertise-address=192.168.1.11 \
 --token 123456.1234567890123456 --token-ttl 0 \
---pod-network-cidr=172.16.0.0/16 --cri-socket=/var/run/crio/crio.sock
+--pod-network-cidr=172.17.0.0/16 --cri-socket=/var/run/crio/crio.sock
 
 # config for master node only  
 mkdir -p $HOME/.kube
