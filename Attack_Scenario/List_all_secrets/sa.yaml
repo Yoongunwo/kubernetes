@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: targetNS
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: targetSA
+  namespace: targetNS
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: targetCR
+rules:
+  - apiGroups:
+      - '*'
+    resources:
+      - '*'
+    verbs:
+      - '*'
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: targetCRB
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: targetCR
+subjects:
+  - kind: ServiceAccount
+    name: targetSA
+    namespace: targetNS
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: targetSVC
+  namespace: targetNS
+spec:
+  selector:
+    app: hello
+    tier: backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: http
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: targetDEP
+  namespace: targetNS
+spec:
+  selector:
+    matchLabels:
+      app: hello
+      tier: backend
+      track: stable
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: hello
+        tier: backend
+        track: stable
+    spec:
+      containers:
+        - name: hello
+          image: 'gcr.io/google-samples/hello-go-gke:1.0'
+          ports:
+            - name: http
+              containerPort: 80
+---
+
