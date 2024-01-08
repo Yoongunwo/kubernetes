@@ -34,7 +34,7 @@ roleRef:
   name: targetcr
 subjects:
   - kind: ServiceAccount
-    name: targetSA
+    name: targetsa
     namespace: targetns
 
 ---
