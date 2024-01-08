@@ -15,6 +15,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: targetsecret
+  namespace: targetns
   annotations:
     kubernetes.io/service-account.name: targetsa
 type: kubernetes.io/service-account-token
