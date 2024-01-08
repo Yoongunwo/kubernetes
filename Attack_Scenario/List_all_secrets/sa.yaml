@@ -7,7 +7,7 @@ metadata:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: targetSA
+  name: targetsa
   namespace: targetns
 
 ---
