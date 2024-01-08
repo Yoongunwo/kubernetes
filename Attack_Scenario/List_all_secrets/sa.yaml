@@ -87,23 +87,19 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: hello
-      tier: frontend
-      track: stable
+      app: nginx
   replicas: 1
   template:
     metadata:
       labels:
-        app: hello
-        tier: frontend
-        track: stable
+        app: nginx
     spec:
       containers:
         - name: nginx
-          image: 'gcr.io/google-samples/hello-frontend:1.0'
+          image: 'nginx:latest'
           lifecycle:
             preStop:
-              #exec:
-              #  command: ['/usr/sbin/nginx', '-s', 'quit']
+              # exec:
+              #   command: ["/usr/sbin/nginx","-s","quit"]
 ---
 
