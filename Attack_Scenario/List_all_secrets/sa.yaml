@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: targetNS
+  name: targetns
 
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: targetSA
-  namespace: targetNS
+  namespace: targetns
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -35,14 +35,14 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: targetSA
-    namespace: targetNS
+    namespace: targetns
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: targetSVC
-  namespace: targetNS
+  namespace: targetns
 spec:
   selector:
     app: hello
@@ -57,7 +57,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: targetDEP
-  namespace: targetNS
+  namespace: targetns
 spec:
   selector:
     matchLabels:
