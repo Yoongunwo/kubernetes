@@ -11,6 +11,15 @@ metadata:
   namespace: targetns
 
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: targetsecret
+  annotations:
+    kubernetes.io/service-account.name: targetsa
+type: kubernetes.io/service-account-token
+
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -94,6 +103,7 @@ spec:
       labels:
         app: nginx
     spec:
+      serviceAccountName: targetsa
       containers:
         - name: nginx
           image: 'nginx:latest'
