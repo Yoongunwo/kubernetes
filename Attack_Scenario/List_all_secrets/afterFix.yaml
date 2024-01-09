@@ -137,7 +137,7 @@ spec:
             runAsGroup: 10001
             fsGroup: 10001
             allowPrivilegeEscalation: false
-            capabilites:
+            capabilities:
               drop:
                 - ALL
                 - NET_RAW
