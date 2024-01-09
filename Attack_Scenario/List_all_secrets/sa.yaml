@@ -85,6 +85,28 @@ spec:
       containers:
         - name: hello
           image: 'gcr.io/google-samples/hello-go-gke:1.0'
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10001
+            runAsGroup: 10001
+            fsGroup: 10001
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+                - NET_RAW
+              add:
+                - NET_BIND_SERVICE
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: RuntimeDefault
+          resources:
+            limits:
+              cpu: '1'
+              memory: '512Mi'
+            requests:
+              cpu: '1'
+              memory: '512Mi'
           ports:
             - name: http
               containerPort: 80
@@ -108,9 +130,28 @@ spec:
       containers:
         - name: nginx
           image: 'nginx:latest'
-          lifecycle:
-            preStop:
-              # exec:
-              #   command: ["/usr/sbin/nginx","-s","quit"]
+          imagePullPolicy: Always
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10001
+            runAsGroup: 10001
+            fsGroup: 10001
+            allowPrivilegeEscalation: false
+            capabilites:
+              drop:
+                - ALL
+                - NET_RAW
+              add:
+                - NET_BIND_SERVICE
+            readOnlyRootFilesystem: true
+            seccompProfile:
+              type: RuntimeDefault
+          resources:
+            limits:
+              cpu: '1'
+              memory: '512Mi'
+            requests:
+              cpu: '1'
+              memory: '512Mi'
 ---
 
