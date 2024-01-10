@@ -6,7 +6,10 @@ yum install vim-enhanced -y
 yum install git -y
 
 # install docker 
-yum install docker -y && systemctl enable --now docker
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+systemctl enable --now docker
 
 # install kubernetes cluster 
 #yum -y install git wget curl
