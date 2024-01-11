@@ -26,9 +26,9 @@ kind: ClusterRole
 metadata:
   name: targetcr
 rules:
-  - apiGroups: ["*"]
-    resources: ["*"]
-    verbs: ["*"]
+  - apiGroups: ['*']
+    resources: ['*']
+    verbs: ['*']
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -86,7 +86,7 @@ spec:
             #runAsNonRoot: true
             #runAsUser: 10001
             #runAsGroup: 10001
-            # fsGroup: 10001
+            #fsGroup: 10001
             allowPrivilegeEscalation: false
             capabilities:
               drop:
@@ -129,27 +129,28 @@ spec:
           image: 'nginx:latest'
           imagePullPolicy: Always
           securityContext:
-            #runAsNonRoot: true
-            #runAsUser: 10001
+            #runAsNonRoot: true # [emerg] 1#1: mkdir() "/var/cache/nginx/client_temp" failed (13: Permission denied)
+            # runsAsNonRoot만 하고 runAsUser를 주지 않으면 CreateContainerConfgiError가 발생한다.
+            #runAsUser: 10001 # # [emerg] 1#1: mkdir() "/var/cache/nginx/client_temp" failed (13: Permission denied)
             runAsGroup: 10001
             #fsGroup: 10001
             allowPrivilegeEscalation: false
             capabilities:
               drop:
-                #- ALL
+                #- ALL # [emerg] 1#1: chown("/var/cache/nginx/client_temp", 101) failed (1: Operation not permitted)
                 - NET_RAW
               add:
                 - NET_BIND_SERVICE
-            #readOnlyRootFilesystem: true
+            #readOnlyRootFilesystem: true # [emerg] 1#1: mkdir() "/var/cache/nginx/client_temp" failed (30: Read-only file system)
             seccompProfile:
               type: RuntimeDefault
           resources:
             #limits:
-              #cpu: '1'
-              #memory: '512Mi'
+            #  cpu: '1'
+            #  memory: '512Mi'
             #requests:
-             # cpu: '0.5'
-              #memory: '256Mi'
+            #  cpu: '1'
+            #  memory: '512Mi'
 ---
 apiVersion: v1
 kind: Service
@@ -164,3 +165,4 @@ spec:
       port: 80
       targetPort: http
 ---
+
