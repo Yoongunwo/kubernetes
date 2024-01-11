@@ -164,16 +164,3 @@ spec:
       port: 80
       targetPort: http
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: targetpod
-  namespace: targetns
-spec:
-  selector:
-    app: nginx
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: http
----
