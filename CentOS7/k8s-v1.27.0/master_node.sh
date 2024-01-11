@@ -8,6 +8,8 @@ echo 'export PATH=$PATH:$GOPATH/bin' >> ~/.bash_profile
 echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bash_profile
 source ~/.bash_profile
 
+sed -i 's/192.168.1.10/192.168.1.11/g' admin.conf
+
 # init kubernetes 
 kubeadm init --apiserver-advertise-address=192.168.1.11 \
 --token 123456.1234567890123456 --token-ttl 0 \
