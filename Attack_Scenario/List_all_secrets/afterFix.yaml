@@ -88,7 +88,8 @@ spec:
             allowPrivilegeEscalation: false
             capabilities:
               drop:
-                - ALL
+                # - ALL
+                - NET_RAW
               add:
                 - NET_BIND_SERVICE
             # readOnlyRootFilesystem: true
