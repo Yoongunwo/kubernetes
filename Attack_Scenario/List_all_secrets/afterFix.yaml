@@ -82,7 +82,7 @@ spec:
           image: 'nginx:latest'
           imagePullPolicy: Always
           securityContext:
-            runAsNonRoot: true
+            # runAsNonRoot: true
             # runAsUser: 10001
             # runAsGroup: 10001
             allowPrivilegeEscalation: false
