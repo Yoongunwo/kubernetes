@@ -63,12 +63,12 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: no-automount
+  name: false-automount
   namespace: targetns
 spec:
   selector:
     matchLabels:
-      app: no-automount
+      app: false-automount
   replicas: 1
   template:
     metadata:
@@ -78,7 +78,7 @@ spec:
       serviceAccountName: targetsa
       automountServiceAccountToken: false
       containers:
-        - name: no-automount
+        - name: false-automount
           image: 'nginx:latest'
           imagePullPolicy: Always
           securityContext:
