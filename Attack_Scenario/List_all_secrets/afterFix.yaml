@@ -26,9 +26,12 @@ kind: ClusterRole
 metadata:
   name: targetcr
 rules:
-  - apiGroups: ['*']
-    resources: ['*']
-    verbs: ['*']
+  - apiGroups: ['apps']
+    resources: ['deployment']
+    verbs: ['get', 'list', 'watch']
+  - apiGroups: ['']
+    resources: ['pods']
+    verbs: ['get', 'list', 'watch']
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
