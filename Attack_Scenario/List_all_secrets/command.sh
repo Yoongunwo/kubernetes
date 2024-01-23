@@ -42,4 +42,6 @@ curl --cacert ${CACERT} --header "Authorization: Bearer ${TOKEN}" -X GET ${APISE
 
 
 # get container ID
+# 컨테이너 root 권한 실행
 kubectl get pods [podname] -o jsonpath={.status.containerStatuses[].containerID}
+runc exec -t -u 0 <ContainerID> sh
