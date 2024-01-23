@@ -39,3 +39,7 @@ CACERT=${SERVICEACCOUNT}/ca.crt
 
 # TOKEN으로 API를 탐색한다
 curl --cacert ${CACERT} --header "Authorization: Bearer ${TOKEN}" -X GET ${APISERVER}/api
+
+
+# get container ID
+kubectl get pods [podname] -o jsonpath={.status.containerStatuses[].containerID}

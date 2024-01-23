@@ -13,6 +13,10 @@ kubeadm init --apiserver-advertise-address=192.168.1.10 \
 --token 123456.1234567890123456 --token-ttl 0 \
 --pod-network-cidr=172.16.0.0/16 --cri-socket=/var/run/crio/crio.sock
 
+# kubeadm init --apiserver-advertise-address=192.168.1.10 \
+# --token 123456.1234567890123456 --token-ttl 0 \
+# --pod-network-cidr=172.16.0.0/16 --cri-socket=/var/run/containerd/containerd.sock
+
 # config for master node only  
 mkdir -p $HOME/.kube
 cp -i /etc/kubernetes/admin.conf $HOME/.kube/config

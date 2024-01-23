@@ -157,21 +157,28 @@ metadata:
 spec:
   containers:
     - name: targetpod
-      image: 'nginx:latest'
-      volumeMounts:
-        - name: my-volume
-          mountPath: /host-system/
+      image: 'ubuntu:20.04'
+      # volumeMounts:
+      #   - name: my-volume
+      #     mountPath: /host-system/
+      command: ['/bin/sh', '-c', 'apt update && apt install gcc vim -y;']
       securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        allowPrivilegeEscalation: false
         capabilities:
           add:
-            - SYS_CHROOT
-            - NET_RAW
-          drop:
-            - ALL
-  volumes:
-    - name: my-volume
-      hostPath:
-        path: /
+            - NET_BIND_SERVICE
+            - CAP_CHOWN
+            - CAP_SETUID
+            - CAP_SETGID
+      ports:
+        - containerPort: 80
+  # volumes:
+  #   - name: my-volume
+  #     hostPath:
+  #       path: /
 
 ---
 
