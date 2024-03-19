@@ -6,6 +6,7 @@ find . -name '*kubeconfig*'
 # 호스트 시스템 접근
 apt update
 apt install libcap2-bin -y
+capsh --print
 chroot /host-system/ /bin/bash
 
 # 호스트 파일 시스템에서 pod 정보 활용하여 
