@@ -20,7 +20,7 @@ sudo systemctl restart containerd
 # init kubernetes using containerd
 kubeadm init --apiserver-advertise-address=192.168.2.10 \
 --token 123456.1234567890123456 --token-ttl 0 \
---pod-network-cidr=172.17.0.0/16 
+--pod-network-cidr=172.16.0.0/16 
 
 # config for master node only  
 mkdir -p $HOME/.kube
