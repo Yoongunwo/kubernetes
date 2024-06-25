@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sa-cicd
+  namespace: cicd
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cicd
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: role-cicd
+  namespace: cicd
+rules:
+  - apiGroups: ['apps', '']
+    resources: ['deployment', 'pods', 'replicasets']
+    verbs: ['get', 'list', 'watch', 'create', 'update', 'patch']
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: rb-cicd
+  namespace: cicd
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: role-cicd
+subjects:
+  - kind: ServiceAccount
+    name: sa-cicd
+    namespace: cicd
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-cicd
+  namespace: cicd
+  annotations:
+    kubernetes.io/service-account.name: sa-cicd
+type: kubernetes.io/service-account-token
+
+---
+# [root@osboxes yaml]# k config set-cluster ${CLUSTER} \
+#   --kubeconfig=${KUBECFG} \
+#   --server=${API_FQDN} \
+#   --certificate-authority=${CERTDIR}/ca.crt \
+#   --embed-certs=true
+
+# [root@osboxes ~]# k config set-context ${CONTEXT} \
+#    --kubeconfig=${KUBECFG} \
+#    --cluster=${CLUSTER} \
+#    --namespace=${NS} \
+#    --user=${SA}
+# Context "sa@ott" created.
+
+# [root@osboxes ~]# k config set-credentials ${SA} \
+#   --kubeconfig=${KUBECFG} \
+#   --token=${jwt}
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test
+  namespace: cicd
+  labels:
+    app: test

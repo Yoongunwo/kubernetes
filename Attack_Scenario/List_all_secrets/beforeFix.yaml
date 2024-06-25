@@ -27,11 +27,11 @@ metadata:
   name: targetcr
 rules:
   - apiGroups:
-      - '*'
+      - ['apps', '']
     resources:
-      - '*'
+      - ['deployment', 'pods', 'replicasets']
     verbs:
-      - '*'
+      - ['get', 'list', 'watch', 'create', 'update', 'patch']
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -113,7 +113,6 @@ spec:
               exec:
                 command: ['/usr/sbin/nginx', '-s', 'quit']
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -130,12 +129,12 @@ spec:
         app: hello
     spec:
       containers:
-      - name: nginx
-        image: nginxdemos/hello:plain-text
-        ports:
-        - name: http
-          containerPort: 80
-          protocol: TCP
+        - name: nginx
+          image: nginxdemos/hello:plain-text
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
       nodeName: minikube
 
 ---
