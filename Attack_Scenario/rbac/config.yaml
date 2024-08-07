@@ -72,3 +72,9 @@ metadata:
   namespace: cicd
   labels:
     app: test
+spec:
+  containers:
+    - name: test
+      image: nginx:latest
+      ports:
+        - containerPort: 80
