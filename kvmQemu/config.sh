@@ -31,7 +31,7 @@ sudo sysctl --system
 sudo modprobe br_netfilter
 
 # 로컬 DNS 설정 (Vagrant가 셸 코드를 전달할 수 없음)
-echo "192.168.1.10 m-k8s" | sudo tee -a /etc/hosts
+echo "10.125.37.128 m-k8s" | sudo tee -a /etc/hosts
 for (( i=1; i<=$1; i++ )); do echo "192.168.1.10$i w$i-k8s" | sudo tee -a /etc/hosts; done
 
 # DNS 설정

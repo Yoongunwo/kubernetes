@@ -13,7 +13,7 @@ sudo sed -i '/^disabled_plugins = \["cri"\]/s/^/#/' /etc/containerd/config.toml
 sudo systemctl restart containerd
 
 # Init Kubernetes using containerd
-sudo kubeadm init --apiserver-advertise-address=192.168.2.10 \
+sudo kubeadm init --apiserver-advertise-address=10.125.37.130 \
 --token 123456.1234567890123456 --token-ttl 0 \
 --pod-network-cidr=172.16.0.0/16 
 

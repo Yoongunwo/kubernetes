@@ -3,8 +3,8 @@
 # 설정
 NUM_WORKERS=3
 MASTER_NAME="m-k8s"
-WORKER_PREFIX="w-k8s"
-ISO_PATH="/path/to/ubuntu-20.04-server-amd64.iso"
+WORKER_PREFIX="w"
+ISO_PATH="/home/yoon/Downloads/ubuntu-20.04.6-live-server-amd64.iso"
 BRIDGE_NETWORK="br0"
 
 # 마스터 노드 생성
