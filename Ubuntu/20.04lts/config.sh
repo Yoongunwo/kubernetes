@@ -6,7 +6,7 @@ echo 'alias vi=vim' >> /etc/profile
 # swapoff -a to disable swapping
 sudo swapoff -a
 # sed to comment the swap partition in /etc/fstab
-sed -i.bak -r 's/(.+ swap .+)/#\1/' /etc/fstab
+sed -i.bak -r 's/(.+swap.+)/#\1/' /etc/fstab
 
 # Kubernetes repo 설정
 sudo apt-get update
