@@ -8,17 +8,16 @@ echo 'export PATH=$PATH:$GOPATH/bin' >> ~/.bash_profile
 echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bash_profile
 source ~/.bash_profile
 
-# init kubernetes using crio
-# kubeadm init --apiserver-advertise-address=192.168.1.10 \
-# --token 123456.1234567890123456 --token-ttl 0 \
-# --pod-network-cidr=172.16.0.0/16 --cri-socket=/var/run/crio/crio.sock
-
 # unknown service runtime.v1alpha2.RuntimeService error troubleshooting
-sudo sed -i '/^disabled_plugins = \["cri"\]/s/^/#/' /etc/containerd/config.toml
+# sudo sed -i '/^disabled_plugins = \["cri"\]/s/^/#/' /etc/containerd/config.toml
+# sudo systemctl restart containerd
+
+containerd config default | tee /etc/containerd/config.toml
+sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' /etc/containerd/config.toml  
 sudo systemctl restart containerd
 
 # init kubernetes using containerd
-sudo kubeadm init --apiserver-advertise-address=192.168.1.10 \
+sudo kubeadm init --apiserver-advertise-address=10.125.37.77 \
 --token 123456.1234567890123456 --token-ttl 0 \
 --pod-network-cidr=172.16.0.0/16
 
