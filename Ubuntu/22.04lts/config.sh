@@ -35,9 +35,16 @@ echo "192.168.1.10 m-k8s" | sudo tee -a /etc/hosts
 for (( i=1; i<=$1; i++ )); do echo "192.168.1.10$i w$i-k8s" | sudo tee -a /etc/hosts; done
 
 # DNS 설정
-cat <<EOF | sudo tee /etc/resolv.conf
-nameserver 1.1.1.1 # Cloudflare DNS
-nameserver 8.8.8.8 # Google DNS
+# cat <<EOF | sudo tee /etc/resolv.conf
+# nameserver 1.1.1.1 # Cloudflare DNS
+# nameserver 8.8.8.8 # Google DNS
+# EOF
+
+cat <<EOF | sudo tee /etc/crictl.yaml
+runtime-endpoint: unix:///run/containerd/containerd.sock
+image-endpoint: unix:///run/containerd/containerd.sock
+timeout: 10
+debug: false
 EOF
 
 # SELinux 설정 (Ubuntu에서는 기본적으로 사용하지 않음, 필요시 설치)

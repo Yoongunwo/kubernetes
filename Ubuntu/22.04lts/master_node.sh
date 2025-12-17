@@ -17,7 +17,7 @@ sed -i 's/SystemdCgroup = false/SystemdCgroup = true/g' /etc/containerd/config.t
 sudo systemctl restart containerd
 
 # init kubernetes using containerd
-sudo kubeadm init --apiserver-advertise-address=10.125.37.77 \
+sudo kubeadm init --apiserver-advertise-address=192.168.122.2 \
 --token 123456.1234567890123456 --token-ttl 0 \
 --pod-network-cidr=172.16.0.0/16
 
